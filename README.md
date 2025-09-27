@@ -18,12 +18,12 @@ This project defines the architecture and requirements of an **Academic Digital 
 
 ## 📑 Sections
 
-### 1. [Introduction](https://github.com/JOliverosRIng/Databases-ii/blob/73f4b718abcac079aa575f04fbae00bc906dab72/Workshop-1/Workshop-1.pdf)#page=1)
+### 1. [Introduction](https://github.com/JOliverosRIng/Databases-ii/blob/73f4b718abcac079aa575f04fbae00bc906dab72/Workshop-1/Workshop-1.pdf#page=1)
 - Defines the purpose of the Digital University Library.  
 - Explains the hybrid access model (local vs. licensed resources).  
 - Describes the roles: students, professors, administrators, and librarians.  
 
-### 2. [Canvas Business Model](./Workshop-1.pdf#page=2)
+### 2. [Canvas Business Model](https://github.com/JOliverosRIng/Databases-ii/blob/73f4b718abcac079aa575f04fbae00bc906dab72/Workshop-1/Workshop-1.pdf#page=2)
 - Identifies **key partners**, **activities**, and **resources**.  
 - Defines **value propositions**, **customer segments**, and **revenue streams**.  
 - Outlines **customer relationships**, **channels**, and **cost structure**.  
