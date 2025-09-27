@@ -28,7 +28,7 @@ This project defines the architecture and requirements of an **Academic Digital 
 - Defines **value propositions**, **customer segments**, and **revenue streams**.  
 - Outlines **customer relationships**, **channels**, and **cost structure**.  
 
-### 3. [Requirements Documentation](./Workshop-1.pdf#page=3)
+### 3. [Requirements Documentation](https://github.com/JOliverosRIng/Databases-ii/blob/73f4b718abcac079aa575f04fbae00bc906dab72/Workshop-1/Workshop-1.pdf#page=3)
 - **Functional Requirements:**  
   - Registration and authentication  
   - Role-based access control (RBAC)  
@@ -38,7 +38,7 @@ This project defines the architecture and requirements of an **Academic Digital 
   - Performance, scalability, availability  
   - Security, privacy, and data management  
 
-### 4. [User Stories](./Workshop-1.pdf#page=4)
+### 4. [User Stories](https://github.com/JOliverosRIng/Databases-ii/blob/73f4b718abcac079aa575f04fbae00bc906dab72/Workshop-1/Workshop-1.pdf#page=4)
 - Defines scenarios for:  
   - Searching and downloading resources  
   - Leaving reviews and ratings  
@@ -46,7 +46,7 @@ This project defines the architecture and requirements of an **Academic Digital 
   - Librarians validating uploads and managing licenses  
   - Administrators managing users and catalog  
 
-### 5. [Initial Database Architecture](./Workshop-1.pdf#page=6)
+### 5. [Initial Database Architecture](https://github.com/JOliverosRIng/Databases-ii/blob/73f4b718abcac079aa575f04fbae00bc906dab72/Workshop-1/Workshop-1.pdf#page=6)
 - Describes the **4-layer architecture model**:  
   1. Presentation Layer  
   2. Application Layer  
