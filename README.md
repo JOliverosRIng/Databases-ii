@@ -8,158 +8,77 @@
 - David Stiven Muñoz Amaya — 20202020071  
 - Janeth Oliveros Ramírez — 20182020100  
 - Daniel Felipe Páez Mosquera — 20202020070  
-**Date:** October 2025  
+**Date:** November 2025  
 
 ---
 
-##  1. Introduction
-The project proposes the creation of an Academic Digital Library Platform designed to complement the university’s physical library.  
-It allows students and faculty to search, consult, and download DRM-free institutional content such as theses, research papers, and digital books.  
+# Digital University Library – Data Architecture (Workshops 3)
 
-Core characteristics:  
-- Institutional access (students, professors, admins, librarians).  
-- Role-based permissions and secure authentication.  
-- Hybrid access model (local + external licensed content).  
-- Focus on scalability, reliability, and 24/7 availability.
+This repository contains the documentation and related artefacts for the **data architecture design of the Digital University Library**, developed as part of the *Databases 2* course.
+
+The main goal of the work is to specify how the platform stores, manages and processes information in a consistent, scalable and efficient way, addressing both functional requirements and non-functional aspects such as performance, concurrency and availability.
 
 ---
 
-##  2. Canvas Business Model
-The Business Model Canvas defines:  
-- **Value Proposition:** Efficient access to academic materials.  
-- **Key Resources:** Digital content, metadata, and user management.  
-- **Key Partners:** Collaboration with faculty for acquisition requests.  
-- **Customer Segments:** Students, professors, librarians, and administrators.  
-*(See Figure 1 in the original document.)*
+## Repository Contents
+
+- `WORKSHOP3.pdf`  
+  Consolidated report for Workshop 3. This is the main document and includes:
+  - Refined scope and adjustments based on the Workshop 2 submission.
+  - Concurrency analysis (scenarios and anomalies).
+  - Concurrency solutions (isolation levels, locking, OCC, MVCC, retry/backoff).
+  - Parallel and distributed database design (polyglot architecture, data distribution, parallel queries).
+  - High-level diagrams of the architecture and data distribution.
+
+- `WORKSHOP2.pdf` 
+  Original Workshop 2 report, used as the starting point for the extended design in Workshop 3.
+
+- `figures/`
+  Folder containing the diagrams used in the report, for example:
+  - High-level distributed architecture.
+  - Data distribution across nodes.
+  - Parallel search and recommendation query flow.
 
 ---
 
-##  3. Requirements Documentation
+## Document Structure (WORKSHOP3.pdf)
 
-### 3.1 Functional Requirements
-Defines 15 key system functionalities, including:  
-- User registration and authentication.  
-- Role-Based Access Control (RBAC).  
-- Resource ingestion and approval workflow.  
-- Metadata management and advanced search.  
-- Reviews, ratings, notifications, and BI reports.  
+The main report is organised into three conceptual parts:
 
-### 3.2 Non-Functional Requirements
-Specifies performance, scalability, availability, and security criteria:  
-- Response times under 1–2 seconds.  
-- 24/7 availability with controlled access.  
-- Data protection and minimal personal data storage.  
-- Use of relational + NoSQL databases.
+1. **Refined Requirements and Conceptual Model**  
+   - Review and refinement of the scope defined in Workshop 2.  
+   - Description of the business context and main functional and non-functional requirements.  
+   - Information requirements expressed as representative queries.  
+   - Conceptual data model for the Digital University Library and its connection to user needs.
 
----
+2. **Concurrency Analysis and Concurrency Solutions**  
+   - Identification of critical concurrency scenarios in:
+     - The relational metadata layer (resources, users, reviews, licences).
+     - The NoSQL activity-log layer (downloads, search logs).  
+   - Analysis of potential anomalies (lost update, non-repeatable read, phantom read, write skew).  
+   - Proposed concurrency-control mechanisms:
+     - Transaction isolation levels.
+     - Row-level locking versus table-level locking.
+     - Optimistic Concurrency Control (OCC) using version columns.
+     - Use of MVCC (Multi-Version Concurrency Control) in PostgreSQL.
+     - Retry/backoff strategies for conflicts and transient failures.
 
-##  4. Data System Architecture
-A **hybrid architecture** integrating:
-- **PostgreSQL** for structured, transactional data.  
-- **MongoDB** for flexible and denormalized documents.  
-- **Elasticsearch** for full-text search and filtering.  
-- **Object Storage (GCS/MinIO)** for file management.  
-- **ETL and BI Layers** for analytics and reporting.  
-
-This ensures modularity, performance, and academic data integrity.
-
----
-
-##  5. Information Requirements
-
-### 5.1 Information Types and Relationships
-Defines 9 key information types (IR1–IR9), linking each to user stories and the business model canvas (e.g., searches, metadata, logs, reviews, acquisitions, etc.).
-
-### 5.2 Functional Scope and Query Examples
-Provides functional areas with example SQL/NoSQL queries for:
-- User behavior analytics.  
-- Resource popularity and authorship.  
-- Recent activity logs and license tracking.
-
-### 5.3 Information Flow Overview
-Describes *Operational Information* (user activity) and *Administrative Information* (validation, licensing, requests), ensuring both performance and consistency.
-
-### 5.4 Reflection
-Notes key design decisions:
-- Separation between operational and analytical data.  
-- Balance between functionality and privacy.  
-- Metadata consistency and copyright compliance.
+3. **Parallel and Distributed Database Design**  
+   - Design of a parallel and distributed data architecture following a polyglot persistence approach:
+     - PostgreSQL as the relational core for authoritative metadata.
+     - Sharded MongoDB for high-volume activity logs and behavioural data.
+     - Parallel search engine for full-text search and recommendations.
+     - Distributed object storage for PDF/EPUB files.
+     - Data warehouse layer for analytics and BI dashboards.  
+   - Distribution and replication of data across nodes (Node A, B, C, D, search cluster, object storage, data warehouse).  
+   - Parallel execution of queries:
+     - Search queries across index shards.
+     - Metadata retrieval from PostgreSQL read replicas and cache.
+     - Aggregations on logs to support recommendations and analytics.
 
 ---
 
-##  6. User Stories
-Nine user stories (US1–US9) describing interactions for:
-- Searching, downloading, and reviewing resources.  
-- Professors suggesting acquisitions.  
-- Librarians validating uploads and managing licenses.  
-- Administrators handling user accounts and the catalog.  
-Each includes priority, estimation, and acceptance criteria.
-
----
-
-##  7. Entity–Relationship (ER) Model
-
-### 7.1 General Description
-Organized into five functional domains:  
-1. Users and Roles  
-2. Digital Content  
-3. Suggestion Workflow  
-4. Audit and Logging  
-5. Support and Referential Integrity  
-
-### 7.2 Main Improvements from Workshop 1
-- Standardized entity names and data types.  
-- Added `author_order` and restructured N:M relationships.  
-- Improved semantic clarity between structural and transactional entities.
-
-### 7.3 Graphical Representation
-Final ER diagram, ensuring logical clarity and referential integrity.
-
----
-
-##  8. Database Implementation (SQL)
-Developed in **PostgreSQL** following the refined ER model.  
-Includes:  
-- DDL schema creation (primary/foreign keys, indexes).  
-- Data population (10–20 sample records).  
-- Referential integrity validation using pgAdmin 4.  
-
-The design ensures normalization (up to 3NF) and extensibility.
-
----
-
-##  9. Query Proposals (SQL)
-Three main SQL queries demonstrate analytical capabilities:  
-1. **Most Downloaded Resources** – ranks top resources.  
-2. **Most Prolific Authors** – counts author publications.  
-3. **Downloads by Program** – measures usage by department.  
-
-Each query includes purpose, explanation, and validation results.
-
----
-
-##  10. NoSQL Model
-Implemented using a **MongoDB** schema with four collections:  
-- `users`  
-- `resources`  
-- `suggestions`  
-- `logs`  
-
-The model supports full-text search, recommendations, and activity tracking through embedded JSON structures, improving read performance and scalability.
-
----
-
-##  11. Query Proposals (NoSQL)
-Three representative MongoDB queries:  
-1. **Full-text Search** by title or author using `$regex`.  
-2. **Recommendations** based on shared authors using `$lookup`.  
-3. **Recent Download Activity** sorted by timestamp for real-time insights.  
-
-These queries complement SQL operations and enable flexible, fast data retrieval.
-
----
-
-##  12. Conclusions
+##  Conclusions
 The Digital University Library implements a hybrid data architecture combining PostgreSQL and MongoDB:  
 - SQL ensures consistency and normalization.  
 - NoSQL provides speed and flexibility for modern academic needs.  
