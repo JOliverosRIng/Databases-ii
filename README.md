@@ -57,7 +57,7 @@ The main report is organised into three conceptual parts:
      - The NoSQL activity-log layer (downloads, search logs).  
    - Analysis of potential anomalies (lost update, non-repeatable read, phantom read, write skew).  
    - Proposed concurrency-control mechanisms:
-     - Transaction isolation levels (READ COMMITTED, REPEATABLE READ, SERIALIZABLE).
+     - Transaction isolation levels.
      - Row-level locking versus table-level locking.
      - Optimistic Concurrency Control (OCC) using version columns.
      - Use of MVCC (Multi-Version Concurrency Control) in PostgreSQL.
@@ -70,7 +70,7 @@ The main report is organised into three conceptual parts:
      - Parallel search engine for full-text search and recommendations.
      - Distributed object storage for PDF/EPUB files.
      - Data warehouse layer for analytics and BI dashboards.  
-   - Distribution and replication of data across nodes (e.g. Node A, B, C, D, search cluster, object storage, data warehouse).  
+   - Distribution and replication of data across nodes (Node A, B, C, D, search cluster, object storage, data warehouse).  
    - Parallel execution of queries:
      - Search queries across index shards.
      - Metadata retrieval from PostgreSQL read replicas and cache.
