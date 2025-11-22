@@ -11,8 +11,12 @@
 **Date:** November 2025  
 
 ---
+# Workshop 3: Concurrency, Parallelism, and Performance Strategies
 
-# Digital University Library – Data Architecture (Workshops 3)
+## Project Overview
+This repository contains the deliverables for Workshop 3, focusing on the performance optimization and concurrency analysis of the Digital University Library Platform. The architecture evolves from a conceptual data model to a high-performance hybrid system using Polyglot Persistence (PostgreSQL + MongoDB + Redis).
+
+## Digital University Library – Data Architecture (Workshops 3)
 
 This repository contains the documentation and related artefacts for the **data architecture design of the Digital University Library**, developed as part of the *Databases 2* course.
 
